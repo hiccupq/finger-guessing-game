@@ -11,6 +11,31 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="stylesheet.css">
         <title>React Quick!</title>
+        
+        <style>
+            
+            * {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#shape {
+    width: 150px;
+    height: 150px;
+    background-color: cornflowerblue;
+    display: none;
+    position: relative;
+}
+
+#wholeThing {
+    border: 2px blue solid;
+    width: 800px;
+    height: 550px;
+    background-color: cornsilk;
+
+}
+
+            
+        </style>
 
     </head>
 
@@ -20,10 +45,96 @@
         <![endif]-->
 
         
+        <h1>How Fast Are You?</h1>
+
+        <p>When a shape appears, try to click on it as fast as you can!</p>
+
+        <p> <strong>Your time:</strong> Your time: <span id="timeTaken"></span></p>
+
+        <div id="wholeThing">
+
+            <div id="shape"></div>
+
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script type="text/javascript" src="app.js"></script>
+        <script> 
+        
+            
+var start = new Date().getTime();
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+  
+
+
+
+function makeShapeAppear() {
+
+    var topPosition = Math.random() * 300;
+
+    var leftPosition = Math.random() * 550;
+
+    var widthChange = (Math.random() * 200) + 50;
+
+    if (Math.random() > 0.5) {
+        document.getElementById("shape").style.borderRadius = "50%"
+    } else {
+        document.getElementById("shape").style.borderRadius = "0"
+    }
+
+    document.getElementById("shape").style.top = topPosition + "px";
+
+    document.getElementById("shape").style.left = leftPosition + "px";
+
+    document.getElementById("shape").style.height = widthChange + "px"
+
+    document.getElementById("shape").style.width = widthChange + "px"
+
+
+    document.getElementById("shape").style.backgroundColor = getRandomColor();
+
+    document.getElementById("shape").style.display = "block";
+
+    document.getElementById("wholeThing").style.backgroundColor = getRandomColor();
+
+
+    start = new Date().getTime();
+}
+
+
+
+function appearAfterDelay() {
+
+    setTimeout(makeShapeAppear, Math.random() + 500);
+
+}
+
+appearAfterDelay();
+
+
+document.getElementById("shape").onclick = function() {
+    
+    var end = new Date().getTime();
+
+    var timeTaken = (end - start) / 1000;
+    
+    document.getElementById("timeTaken").innerHTML = timeTaken + "s";
+
+    document.getElementById("shape").style.display ="none";
+
+
+    appearAfterDelay();
+} 
+        
+        </script>
     </body>
 </html>
